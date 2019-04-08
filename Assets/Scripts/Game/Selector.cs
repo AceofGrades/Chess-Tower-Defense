@@ -106,7 +106,12 @@ public class Selector : MonoBehaviour {
 					tile.material=redTileMat;*/
 				}
 				else if (Input.GetMouseButtonDown(0)) {
-					Instantiate(pieces[index], hit.transform.position, Quaternion.identity, hit.transform);
+					if (pieces[index].GetComponent<Queen>()) {
+						// Epic workaround for strange bug
+						Instantiate(pieces[index], hit.transform.position, Quaternion.Euler(0f, 9.7780001f, 0f), hit.transform);
+					} else {
+						Instantiate(pieces[index], hit.transform.position, Quaternion.identity, hit.transform);
+					}
 					p.enabled = false;
 					unused[index] -= 1;
 					if (unused[index] == 0) {
